@@ -1,29 +1,29 @@
-Инструкция по запуску тестов.
+# Инструкция по запуску тестов.
 
-1. Установите зависимости:
+### _1. Установите зависимости:_
 
 npm install
 
-2. Запустите тесты:
+### _2. Запустите тесты:_
 
 npx playwright test
 
-3. Сгенерируйте отчет Allure:
+### _3. Сгенерируйте отчет Allure:_
 
 npx allure generate allure-results --clean -o allure-report
 
-4. Откройте отчет Allure:
+### _4. Откройте отчет Allure:_
 
 npx allure open allure-report
 
-5. Запуск тестов
+### _5. Запуск тестов_
 
 npx playwright test
 
-6. Генерация отчета Allure
+### _6. Генерация отчета Allure_
 
 npx allure generate allure-results --clean -o allure-report
 
-7. Открытие отчета Allure
+### _7. Открытие отчета Allure_
 
 npx allure open allure-report
