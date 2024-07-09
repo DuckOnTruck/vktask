@@ -1,0 +1,29 @@
+const { test, expect } = require('@playwright/test');
+const { IssuePage } = require('../pages/issuePage');
+const { IssuesListPage } = require('../pages/issuesListPage');
+
+test('Add Comment to Issue', async ({ page }) => {
+  const issuePage = new IssuePage(page);
+  const issuesListPage = new IssuesListPage(page);
+
+  // Step 1: Navigate to Issues List Page
+  await test.step('Navigate to Issues List Page', async () => {
+    await page.goto('/issues');
+  });
+
+  // Step 2: Open Issue
+  await test.step('Open Issue', async () => {
+    await issuesListPage.openIssue('Issue 1');
+  });
+
+  // Step 3: Add Comment
+  await test.step('Add Comment', async () => {
+    await page.locator('#comment').fill('Это тестовый комментарий');
+    await page.locator('#add-comment').click();
+  });
+
+  // Step 4: Verify Comment Added
+  await test.step('Verify Comment Added', async () => {
+    expect(await page.locator('.comments').textContent()).toContain('Это тестовый комментарий');
+  });
+});

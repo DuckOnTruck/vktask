@@ -1,0 +1,29 @@
+const { test, expect } = require('@playwright/test');
+const { IssuePage } = require('../pages/issuePage');
+const { IssuesListPage } = require('../pages/issuesListPage');
+
+test('Delete Issue', async ({ page }) => {
+  const issuePage = new IssuePage(page);
+  const issuesListPage = new IssuesListPage(page);
+
+  // Step 1: Navigate to Issues List Page
+  await test.step('Navigate to Issues List Page', async () => {
+    await page.goto('/issues');
+  });
+
+  // Step 2: Open Issue
+  await test.step('Open Issue', async () => {
+    await issuesListPage.openIssue('Issue 1');
+  });
+
+  // Step 3: Delete Issue
+  await test.step('Delete Issue', async () => {
+    await issuePage.deleteIssue();
+  });
+
+  // Step 4: Verify Issue is Deleted
+  await test.step('Verify Issue is Deleted', async () => {
+    await page.goto('/issues');
+    expect(await issuesListPage.isIssuePresent('Issue 1')).toBeFalsy();
+  });
+});

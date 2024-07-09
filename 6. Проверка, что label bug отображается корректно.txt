@@ -1,0 +1,21 @@
+const { test, expect } = require('@playwright/test');
+const { IssuesListPage } = require('../pages/issuesListPage');
+
+test('Verify Issue Label', async ({ page }) => {
+  const issuesListPage = new IssuesListPage(page);
+
+  // Step 1: Navigate to Issues List Page
+  await test.step('Navigate to Issues List Page', async () => {
+    await page.goto('/issues');
+  });
+
+  // Step 2: Open Issue
+  await test.step('Open Issue', async () => {
+    await issuesListPage.openIssue('Issue 1');
+  });
+
+  // Step 3: Verify Issue Label
+  await test.step('Verify Issue Label', async () => {
+    expect(await page.locator('.label').textContent()).toBe('bug');
+  });
+});

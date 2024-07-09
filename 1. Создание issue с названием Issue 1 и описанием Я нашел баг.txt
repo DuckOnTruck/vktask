@@ -1,0 +1,21 @@
+const { test, expect } = require('@playwright/test');
+const { IssuePage } = require('../pages/issuePage');
+
+test('Create Issue', async ({ page }) => {
+  const issuePage = new IssuePage(page);
+
+  // Step 1: Navigate to Create Issue Page
+  await test.step('Navigate to Create Issue Page', async () => {
+    await page.goto('/create-issue');
+  });
+
+  // Step 2: Fill Issue Details and Create
+  await test.step('Fill Issue Details and Create', async () => {
+    await issuePage.createIssue('Issue 1', 'Я нашел баг', 'bug', 'duckontruck');
+  });
+
+  // Step 3: Verify Issue Created
+  await test.step('Verify Issue Created', async () => {
+    await expect(page.locator('.notification')).toHaveText('Issue created successfully');
+  });
+});

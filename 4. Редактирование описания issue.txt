@@ -1,0 +1,28 @@
+const { test, expect } = require('@playwright/test');
+const { IssuePage } = require('../pages/issuePage');
+const { IssuesListPage } = require('../pages/issuesListPage');
+
+test('Edit Issue Description', async ({ page }) => {
+  const issuePage = new IssuePage(page);
+  const issuesListPage = new IssuesListPage(page);
+
+  // Step 1: Navigate to Issues List Page
+  await test.step('Navigate to Issues List Page', async () => {
+    await page.goto('/issues');
+  });
+
+  // Step 2: Open Issue
+  await test.step('Open Issue', async () => {
+    await issuesListPage.openIssue('Issue 1');
+  });
+
+  // Step 3: Edit Issue Description
+  await test.step('Edit Issue Description', async () => {
+    await issuePage.editDescription('Я нашел новый баг');
+  });
+
+  // Step 4: Verify Edited Description
+  await test.step('Verify Edited Description', async () => {
+    expect(await page.locator('#description').inputValue()).toBe('Я нашел новый баг');
+  });
+});

@@ -1,0 +1,16 @@
+const { test, expect } = require('@playwright/test');
+const { IssuesListPage } = require('../pages/issuesListPage');
+
+test('Verify Issue in List', async ({ page }) => {
+  const issuesListPage = new IssuesListPage(page);
+
+  // Step 1: Navigate to Issues List Page
+  await test.step('Navigate to Issues List Page', async () => {
+    await page.goto('/issues');
+  });
+
+  // Step 2: Verify Issue is Present in List
+  await test.step('Verify Issue is Present in List', async () => {
+    expect(await issuesListPage.isIssuePresent('Issue 1')).toBeTruthy();
+  });
+});
